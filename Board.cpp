@@ -42,8 +42,10 @@ Board::Board(QWidget *parent, int size, const QString *cubeLetters) : QWidget(pa
     for (int i = 0; i < size; ++i) {
         std::vector<char> vec;
         vec.clear();
-        for (int j = 0; j < size; ++j) {
+        for (int j = 0; j < size; ++j) {\
+            //random letters
             QString input = this->letters[index(i, j)].at(Util::random(0,size));
+
             this->cubes[index(i, j)]->setLetter(input);
 
             vec.push_back(tolower(input.toStdString().data()[0]));
@@ -54,12 +56,6 @@ Board::Board(QWidget *parent, int size, const QString *cubeLetters) : QWidget(pa
 }
 bool Board::checkInBoard(std::string word)
 {
-//    for (int i = 0; i < size; ++i) {
-//        for (int j = 0; j < size; ++j) {
-//            std::cout <<strCubes[i][j]  ;
-//        }
-//          std::cout  << std::endl;
-//    }
    std::cout <<    word;
   std::cout << "checkInBoard" << std::endl;
   bool res = exist(strCubes ,word);

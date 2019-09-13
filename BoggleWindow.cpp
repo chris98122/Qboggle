@@ -48,6 +48,8 @@ void BoggleWindow::checkwords(QString s)
         computer->setLex( me->lex);
         console->clear();
         console->write("Computer Mode\n");
+        computer->findAll(board->strCubes);
+
     }
     if(str.size() >= 4 && board->checkInBoard (str) && me->checkInLexicon( str))
     {

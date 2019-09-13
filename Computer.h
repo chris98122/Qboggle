@@ -14,12 +14,12 @@ public:
     Computer(QWidget *parent, QString label):WordListWidget (parent, label)
     {
     };
-    bool  checkInLexicon(std::string s);
     void setLex(Lexicon *lex)
     {
         this->lex=lex;
     }
-
+    void findAll(std::vector<std::vector<char>>& board);
+    void search(std::vector<std::vector<char>>& board,std::string word, int i, int j, std::vector<std::vector<bool>>& visited );
 };
 
 #endif // COMPUTER_H

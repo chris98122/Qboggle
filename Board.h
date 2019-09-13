@@ -15,6 +15,7 @@ public:
     virtual ~Board();
     void shake();
     bool checkInBoard(std::string s);
+    std::vector<std::vector<char>> strCubes;
 
 signals:
 
@@ -23,7 +24,7 @@ public slots:
 private:
     bool exist(std::vector<std::vector<char>>& board, std::string word);
     bool search(std::vector<std::vector<char>>& board, std::string word, int idx, int i, int j, std::vector<std::vector<bool>>& visited);
-    std::vector<std::vector<char>> strCubes;
+
     int size;
     Cube **cubes;
     QString *letters;
