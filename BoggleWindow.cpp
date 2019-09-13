@@ -1,6 +1,7 @@
 #include "BoggleWindow.h"
 #include "lexicon.h"
 
+#include "Util.h"
 #include <QFile>
 #include <QHBoxLayout>
 #include <QTextEdit>
@@ -25,11 +26,7 @@ BoggleWindow::BoggleWindow(QWidget *parent)
     computer->setGeometry(800 - 50 - 200, 20, 230, 300);
     console->setGeometry(30, 320, 740, 260);
 
-    QFile qFile(":/res/EnglishWords.txt");
-    if (!qFile.open(QIODevice::ReadOnly)) {
-        throw new std::runtime_error("Resource file not found!");
-    }
-    Lexicon lex(qFile);
+
 
 //    for (std::string s: lex) {
 //        std::cout << s << std::endl;
@@ -42,11 +39,13 @@ BoggleWindow::BoggleWindow(QWidget *parent)
 void BoggleWindow::checkwords(QString s)
 {
 
-    std::string str = s.toStdString().data();
-    if(me->checkInBoard (str) && me->checkInLexicon( str))
+    std::string str = Util::tolower(s.toStdString().data());
+    if(str.size() >= 4 && me->checkInBoard (str) && me->checkInLexicon( str))
     {
        //add to word table;
         me->addWord(s);
+        me->addScore(str.size()-3);
+        me->updateScore();
     }
 
 

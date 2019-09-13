@@ -8,8 +8,11 @@ bool Player::checkInBoard(std::string s)
   std::cout << "checkInBoard" << std::endl;
   return true;
 }
-bool Player::checkInLexicon(std::string s)
+bool Player::checkInLexicon(std::string word)
 {
   std::cout << "checkInLexicon" << std::endl;
-  return true;
+  bool res = lex->contains(word);
+  if (res)
+      lex->remove(word);
+  return res;
 }

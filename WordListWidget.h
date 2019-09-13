@@ -3,7 +3,9 @@
 
 #include "WordTable.h"
 
+#include "lexicon.h"
 #include <QWidget>
+#include <QLabel>
 
 class WordListWidget : public QWidget
 {
@@ -13,6 +15,7 @@ public:
     void addScore(int s);
     void addWord(QString word);
     void reset();
+    void  updateScore();
 
 signals:
 
@@ -20,9 +23,11 @@ public slots:
 
 protected:
     QString label;
+    QLabel *scoreLabel ;
     QList<QString> words;
     int score;
     WordTable *wordTable;
+    Lexicon  *lex ;
 };
 
 #endif // WORDLISTWIDGET_H

@@ -8,7 +8,7 @@ class Util
 public:
     Util();
     static int random(int min, int max);
-
+    static std::string  tolower( std::string str );
 };
 
 #endif // UTIL_H

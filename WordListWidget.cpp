@@ -3,16 +3,24 @@
 #include <QHBoxLayout>
 #include <QLabel>
 #include <QTableView>
+#include "lexicon.h"
 
+#include <QFile>
 WordListWidget::WordListWidget(QWidget *parent, QString label) : QWidget(parent)
 {
     reset();
+    // set lexicon
+    QFile qFile(":/res/EnglishWords.txt");
+    if (!qFile.open(QIODevice::ReadOnly)) {
+        throw new std::runtime_error("Resource file not found!");
+    }
+    lex = new  Lexicon (qFile);
 
     QVBoxLayout *layout = new QVBoxLayout();
     QHBoxLayout *headLayout = new QHBoxLayout();
 
     QLabel *nameLabel = new QLabel(this);
-    QLabel *scoreLabel = new QLabel(this);
+    scoreLabel = new QLabel(this);
     QFont font = nameLabel->font();
     font.setPointSize(20);
     nameLabel->setFont(font);
@@ -38,6 +46,10 @@ WordListWidget::WordListWidget(QWidget *parent, QString label) : QWidget(parent)
 void WordListWidget::addScore(int score)
 {
     this->score += score;
+}
+void WordListWidget::updateScore()
+{
+    scoreLabel->setText(QString::number(score));
 }
 void WordListWidget::addWord(QString word)
 {
