@@ -11,7 +11,7 @@ void Computer::findAll(std::vector<std::vector<char>>& board)
     std::vector< std::vector<bool>> visited(m, std::vector<bool>(n));
     for (int i = 0; i < m; ++i) {
         for (int j = 0; j < n; ++j) {
-           search(board,"",0,0,visited);
+           search(board,"",i,j,visited);
         }
     }
 
@@ -39,7 +39,6 @@ void Computer::search(std::vector<std::vector<char>>& board, std::string word, i
         {
              addWord(QString(word.data()));
              lex->remove(word);
-             //res.push_back(word);
              addScore(word.size()-3);
              updateScore();
         }
