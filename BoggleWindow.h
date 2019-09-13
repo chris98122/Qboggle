@@ -3,6 +3,8 @@
 
 #include "Board.h"
 #include "Console.h"
+
+#include "Player.h"
 #include "WordListWidget.h"
 
 #include <QMainWindow>
@@ -14,8 +16,11 @@ class BoggleWindow : public QMainWindow
 public:
     BoggleWindow(QWidget *parent = 0);
     ~BoggleWindow();
+
+public slots:
+    void checkwords(QString words);
 private:
-    WordListWidget *me;
+    Player *me;
     WordListWidget *computer;
     Board *board;
     Console *console;

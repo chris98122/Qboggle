@@ -5,17 +5,20 @@
 #include <QHBoxLayout>
 #include <QTextEdit>
 #include <iostream>
-
+#include "string.h"
+#include "Player.h"
+#include <QDebug>
 BoggleWindow::BoggleWindow(QWidget *parent)
     : QMainWindow(parent)
 {
     this->setWindowTitle("QBoggle!");
     this->setFixedSize(BOGGLE_WINDOW_WIDTH, BOGGLE_WINDOW_HEIGHT);
 
-    me = new WordListWidget(this, "Me");
+    me = new Player(this, "Me");
     computer = new WordListWidget(this, "Computer");
     board = new Board(this);
     console = new Console(this);
+
 
     me->setGeometry(20, 20, 230, 300);
     board->setGeometry(230, 0, 300, 300);
@@ -28,14 +31,21 @@ BoggleWindow::BoggleWindow(QWidget *parent)
     }
     Lexicon lex(qFile);
 
-    /*
-    for (std::string s: lex) {
-        std::cout << s << std::endl;
-    }
-    */
+//    for (std::string s: lex) {
+//        std::cout << s << std::endl;
+//    }
+
     console->write("Welcome to the game Boggle!\n");
 }
+void BoggleWindow::checkwords(QString s)
+{
+        //std::cout <<
+    std::string str = s.toStdString().data();
+    me-> checkInBoard ( str);
+    me->checkInLexicon( str);
+    std::cout <<str;
 
+}
 BoggleWindow::~BoggleWindow()
 {
 }

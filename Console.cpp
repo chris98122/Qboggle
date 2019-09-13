@@ -2,6 +2,7 @@
 #include <QKeyEvent>
 #include <QTextLine>
 #include <QTextCursor>
+#include <QDebug>
 
 Console::Console(QWidget *parent) : QTextEdit(parent)
 {

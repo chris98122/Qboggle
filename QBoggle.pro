@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    Player.cpp \
     Util.cpp \
         main.cpp \
         BoggleWindow.cpp \
@@ -37,6 +38,7 @@ SOURCES += \
 
 HEADERS += \
         BoggleWindow.h \
+    Player.h \
     Util.h \
     WordListWidget.h \
     Board.h \

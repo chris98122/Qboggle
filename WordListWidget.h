@@ -13,11 +13,12 @@ public:
     void addScore(int s);
     void addWord(QString word);
     void reset();
+
 signals:
 
 public slots:
 
-private:
+protected:
     QString label;
     QList<QString> words;
     int score;
