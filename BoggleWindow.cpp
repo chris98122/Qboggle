@@ -8,6 +8,7 @@
 #include <iostream>
 #include "string.h"
 #include "Player.h"
+#include "Computer.h"
 #include <QDebug>
 BoggleWindow::BoggleWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -16,7 +17,7 @@ BoggleWindow::BoggleWindow(QWidget *parent)
     this->setFixedSize(BOGGLE_WINDOW_WIDTH, BOGGLE_WINDOW_HEIGHT);
 
     me = new Player(this, "Me");
-    computer = new WordListWidget(this, "Computer");
+    computer = new Computer(this, "Computer");
     board = new Board(this);
     console = new Console(this);
 
@@ -40,6 +41,14 @@ void BoggleWindow::checkwords(QString s)
 {
 
     std::string str = Util::tolower(s.toStdString().data());
+    if(str =="")
+    {
+        disconnect(console,SIGNAL(newLineWritten(QString)),this,SLOT(checkwords(QString)));
+        //computer mode ,lex copied
+        computer->setLex( me->lex);
+        console->clear();
+        console->write("Computer Mode\n");
+    }
     if(str.size() >= 4 && board->checkInBoard (str) && me->checkInLexicon( str))
     {
        //add to word table;

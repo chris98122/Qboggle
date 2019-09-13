@@ -5,6 +5,8 @@
 #include "Console.h"
 
 #include "Player.h"
+
+#include "Computer.h"
 #include "WordListWidget.h"
 
 #include <QMainWindow>
@@ -21,7 +23,7 @@ public slots:
     void checkwords(QString words);
 private:
     Player *me;
-    WordListWidget *computer;
+    Computer*computer;
     Board *board;
     Console *console;
 

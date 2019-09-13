@@ -15,8 +15,9 @@ public:
     void addScore(int s);
     void addWord(QString word);
     void reset();
-    void  updateScore();
+    void updateScore();
 
+    Lexicon  *lex ;
 signals:
 
 public slots:
@@ -27,7 +28,6 @@ protected:
     QList<QString> words;
     int score;
     WordTable *wordTable;
-    Lexicon  *lex ;
 };
 
 #endif // WORDLISTWIDGET_H

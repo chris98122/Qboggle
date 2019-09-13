@@ -10,7 +10,7 @@ Console::Console(QWidget *parent) : QTextEdit(parent)
 
 void Console::clear()
 {
-    this->clear();
+   QTextEdit::clear();
 }
 
 void Console::write(QString msg)
@@ -21,9 +21,13 @@ void Console::write(QString msg)
 void Console::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Backspace)
+    {
         return;
+    }
     if (event->key() == Qt::Key_Delete)
+    {
         return;
+    }
     if (this->textCursor().hasSelection())
         return;
     if (event->key() == Qt::Key_Return) {
