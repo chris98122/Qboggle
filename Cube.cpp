@@ -23,3 +23,19 @@ void Cube::setLetter(QString l)
 {
     label->setText(l);
 }
+void Cube::mousePressEvent(QMouseEvent *e)
+{
+
+    cubeClicked(x,y);
+}
+void Cube::setBlack()
+{
+
+    label->setStyleSheet("color:black;");
+}
+
+void Cube::setYellow()
+{
+
+    label->setStyleSheet("color:yellow;");
+}

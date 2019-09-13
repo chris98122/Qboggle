@@ -3,7 +3,8 @@
 #include <iostream>
 #include <QLabel>
 
-
+#include <iostream>
+#include "string.h"
 bool Player::checkInLexicon(std::string word)
 {
   std::cout << "checkInLexicon" << std::endl;
@@ -11,4 +12,9 @@ bool Player::checkInLexicon(std::string word)
   if (res)
       lex->remove(word);
   return res;
+}
+
+bool Player::checkPrefix(std::string word)
+{
+     return lex->containsPrefix(word);
 }

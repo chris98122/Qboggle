@@ -23,7 +23,19 @@ const QString Board::BIG_BOGGLE_CUBES[25]  = {
 Board::Board(QWidget *parent, int size, const QString *cubeLetters) : QWidget(parent)
 {
     this->size = size;
+    word ="";
+    //初始化 vector
+    for (int i = 0; i < size; ++i) {
+        std::vector<int> vec;
+        vec.clear();
+        for (int j = 0; j < size; ++j) {
+            vec.push_back(0);
+        }
+        graph.push_back(vec);
+    }
+
     this->cubes = new Cube*[size * size];
+
     this->letters = new QString[size * size];
     for (int i = 0; i < size * size; ++i)
         this->letters[i] = cubeLetters[i];
@@ -38,21 +50,26 @@ Board::Board(QWidget *parent, int size, const QString *cubeLetters) : QWidget(pa
         }
     }
     setLayout(layout);
-
     for (int i = 0; i < size; ++i) {
         std::vector<char> vec;
         vec.clear();
-        for (int j = 0; j < size; ++j) {\
+        for (int j = 0; j < size; ++j) {
             //random letters
             QString input = this->letters[index(i, j)].at(Util::random(0,size));
 
             this->cubes[index(i, j)]->setLetter(input);
+            //  add x,y to cubes
+
+            this->cubes[index(i, j)]->setXY(i,j);
+
+            //connect cube's signal to board
+            connect( this->cubes[index(i, j)],SIGNAL(cubeClicked(int ,int )),this,SLOT(checkCube(int ,int )));
 
             vec.push_back(tolower(input.toStdString().data()[0]));
         }
         strCubes.push_back( vec);
     }
-    // this->setStyleSheet("background-color:grey; border: 3px solid");
+
 }
 bool Board::checkInBoard(std::string word)
 {
@@ -90,13 +107,93 @@ bool Board::search(std::vector<std::vector<char>>& board, std::string word, int 
        visited[i][j] = false;
        return res;
    }
+
+void Board::checkCube(int x,int y)
+{
+      graph[x][y]= 1- graph[x][y];
+
+    //判断是否联通
+    if(graph[x][y] == 1)
+        {
+            word=word+strCubes[x][y];
+            this->cubes[index(x, y)]->setYellow();
+        }
+    else {
+        //方便起见 清空所有
+
+        this->CubeClear();
+    }
+//     std::cout<<word<<std::endl;
+//     std::cout<<ifConnected(graph)<<std::endl;
+    if(ifConnected(graph))
+    {
+
+        //判断是否是个前缀 or 是否lex contains
+        //player mode
+        //传信号
+          possibleStr(word);
+
+    }
+    else{
+        //清空所有
+        this->CubeClear();
+
+    }
+
+}
+
+void Board:: CubeClear()
+{
+    word="";
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+                graph[i][j]= 0;
+        }
+    }
+    for (int i = 0; i < size; ++i) {
+        for (int j = 0; j < size; ++j) {
+                  this->cubes[index(i, j)]->setBlack();
+        }
+    }
+}
+bool   Board::ifConnected(std::vector<std::vector<int> > grid)
+{
+    if(grid.empty() || grid[0].empty()) return 0;
+    int m = grid.size(), n = grid[0].size(), res = 0;
+
+     for(int i = 0; i<m;++i)
+      {
+          for(int j = 0; j<n; j++)
+          {
+              if(grid[i][j] == 1)
+              {
+
+                   Board::bfs(i, j, grid);
+                   res++;
+              }
+          }
+      }
+  return (res == 1) ;
+}
+
+
+void  Board::bfs(int x, int y, std::vector<std::vector<int> > &grid)
+{
+      if (x < 0 || y < 0 || x >= grid.size() || y >= grid[0].size() || grid[x][y] == 0) return;
+      grid[x][y] = 0;
+      bfs(x + 1, y, grid);
+      bfs(x - 1, y, grid);
+      bfs(x, y + 1, grid);
+      bfs(x, y - 1, grid);
+      bfs(x-1, y - 1, grid);
+      bfs(x+1, y - 1, grid);
+      bfs(x-1, y + 1, grid);
+      bfs(x +1, y + 1, grid);
+  }
+
+
 Board::~Board()
 {
     if (cubes) delete[] cubes;
     if (letters) delete[] letters;
-}
-
-void Board::shake()
-{
-    // Shake Cubes
 }

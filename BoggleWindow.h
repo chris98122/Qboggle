@@ -21,6 +21,7 @@ public:
 
 public slots:
     void checkwords(QString words);
+    void  checkPossibleStr(std::string s);
 private:
     Player *me;
     Computer*computer;

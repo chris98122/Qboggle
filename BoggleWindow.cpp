@@ -27,16 +27,14 @@ BoggleWindow::BoggleWindow(QWidget *parent)
     computer->setGeometry(800 - 50 - 200, 20, 230, 300);
     console->setGeometry(30, 320, 740, 260);
 
-
-
-//    for (std::string s: lex) {
-//        std::cout << s << std::endl;
-//    }
-
     console->write("Welcome to the game Boggle!\n");
 
     connect(console,SIGNAL(newLineWritten(QString)),this,SLOT(checkwords(QString)));
+
+    connect(board ,SIGNAL(possibleStr(std::string)),this,SLOT(checkPossibleStr(std::string)));
+
 }
+
 void BoggleWindow::checkwords(QString s)
 {
 
@@ -59,8 +57,18 @@ void BoggleWindow::checkwords(QString s)
         me->updateScore();
     }
 
-
-
+}
+void BoggleWindow::checkPossibleStr(std::string s)
+{
+    std::cout<<s;
+    if( me->checkPrefix(s))
+    {
+        //不变
+         this->checkwords(QString(s.data()));
+    }
+    else {
+         board->CubeClear();
+    }
 }
 BoggleWindow::~BoggleWindow()
 {
