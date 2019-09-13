@@ -73,10 +73,10 @@ Board::Board(QWidget *parent, int size, const QString *cubeLetters) : QWidget(pa
 }
 bool Board::checkInBoard(std::string word)
 {
-   std::cout <<    word;
-  std::cout << "checkInBoard" << std::endl;
+//   std::cout <<    word;
+ // std::cout << "checkInBoard" << std::endl;
   bool res = exist(strCubes ,word);
-  std::cout<<res<< std::endl;
+ // std::cout<<res<< std::endl;
   return res ;
 }
 

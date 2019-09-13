@@ -60,11 +60,11 @@ void BoggleWindow::checkwords(QString s)
 }
 void BoggleWindow::checkPossibleStr(std::string s)
 {
-    std::cout<<s;
+    //std::cout<<s;
+    this->checkwords(QString(s.data()));
     if( me->checkPrefix(s))
     {
         //不变
-         this->checkwords(QString(s.data()));
     }
     else {
          board->CubeClear();
