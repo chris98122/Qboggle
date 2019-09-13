@@ -25,6 +25,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
+    Util.cpp \
         main.cpp \
         BoggleWindow.cpp \
     WordListWidget.cpp \
@@ -36,12 +37,14 @@ SOURCES += \
 
 HEADERS += \
         BoggleWindow.h \
+    Util.h \
     WordListWidget.h \
     Board.h \
     WordTable.h \
     Console.h \
     Cube.h \
-    lexicon.h
+    lexicon.h \
+    util.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

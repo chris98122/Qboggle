@@ -1,6 +1,6 @@
 #include "Board.h"
 #include "Cube.h"
-
+#include "Util.h"
 #include <QGridLayout>
 
 
@@ -40,7 +40,8 @@ Board::Board(QWidget *parent, int size, const QString *cubeLetters) : QWidget(pa
 
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            this->cubes[index(i, j)]->setLetter(this->letters[index(i, j)].at(0));
+           this->cubes[index(i, j)]->setLetter(this->letters[index(i, j)].at(Util::random(0,size)));
+
         }
     }
     // this->setStyleSheet("background-color:grey; border: 3px solid");
