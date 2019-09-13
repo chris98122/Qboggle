@@ -36,14 +36,20 @@ BoggleWindow::BoggleWindow(QWidget *parent)
 //    }
 
     console->write("Welcome to the game Boggle!\n");
+
+    connect(console,SIGNAL(newLineWritten(QString)),this,SLOT(checkwords(QString)));
 }
 void BoggleWindow::checkwords(QString s)
 {
-        //std::cout <<
+
     std::string str = s.toStdString().data();
-    me-> checkInBoard ( str);
-    me->checkInLexicon( str);
-    std::cout <<str;
+    if(me->checkInBoard (str) && me->checkInLexicon( str))
+    {
+       //add to word table;
+        me->addWord(s);
+    }
+
+
 
 }
 BoggleWindow::~BoggleWindow()
