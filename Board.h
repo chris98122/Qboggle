@@ -3,6 +3,8 @@
 
 #include "Cube.h"
 
+#include "string.h"
+#include <vector>
 #include <QWidget>
 
 class Board : public QWidget
@@ -12,12 +14,16 @@ public:
     explicit Board(QWidget *parent = nullptr, int size = 5, const QString *cubeLetters = BIG_BOGGLE_CUBES);
     virtual ~Board();
     void shake();
+    bool checkInBoard(std::string s);
 
 signals:
 
 public slots:
 
 private:
+    bool exist(std::vector<std::vector<char>>& board, std::string word);
+    bool search(std::vector<std::vector<char>>& board, std::string word, int idx, int i, int j, std::vector<std::vector<bool>>& visited);
+    std::vector<std::vector<char>> strCubes;
     int size;
     Cube **cubes;
     QString *letters;

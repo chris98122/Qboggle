@@ -40,7 +40,7 @@ void BoggleWindow::checkwords(QString s)
 {
 
     std::string str = Util::tolower(s.toStdString().data());
-    if(str.size() >= 4 && me->checkInBoard (str) && me->checkInLexicon( str))
+    if(str.size() >= 4 && board->checkInBoard (str) && me->checkInLexicon( str))
     {
        //add to word table;
         me->addWord(s);
